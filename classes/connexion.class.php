@@ -1,20 +1,22 @@
 <?php 
     class ConnexionBdd {
         private $host = 'localhost';
-        private $dbname = 'galerieBdd';
         private $user = 'root';
         private $passwd = '';
         private $connexion;
 
         function __construct (){
-            if(isset($host, $dbname, $user, $passwd)){
+
+
+            include ("./conf.php");
+
+            if(isset($host, $user, $passwd)){
                 $this->host = $host ;
-                $this->dbname = $dbname;
                 $this->user = $user;
                 $this->passwd = $passwd;
             }
             try{
-                $this->connexion = new PDO('mysql:dbname=site_galerie_bdd;host=127.0.0.1;port=3306;', $this->user, $this->passwd);
+                $this->connexion = new PDO($this->host, $this->user, $this->passwd);
             }catch (PDOException $e){
                 var_dump($e);
                 echo 'Erreur : impossible de se connecter à la bdd !';
